@@ -61,8 +61,11 @@ class NavBar extends Component {
                 <NavLink className="nav-item nav-link" to="/users/index">
                   Users
                 </NavLink>
-                <NavLink className="nav-item nav-link" to="/muscles/index">
+                <NavLink className="nav-item nav-link" to="/quizzes/index">
                   Quizzes
+                </NavLink>
+                <NavLink className="nav-item nav-link" to="/categories/index">
+                  Categories
                 </NavLink>
               </React.Fragment>
             )}

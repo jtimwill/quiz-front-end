@@ -11,6 +11,9 @@ import UserIndex from './components/users/userIndex';
 import UserNew from './components/users/userNew';
 import UserEdit from './components/users/userEdit';
 import UserShow from './components/users/userShow';
+import CategoryIndex from './components/categories/categoryIndex';
+import CategoryNew from './components/categories/categoryNew';
+import CategoryEdit from './components/categories/categoryEdit';
 
 class App extends Component {
   render() {
@@ -37,6 +40,24 @@ class App extends Component {
               path="/users/me/show"
               component={UserShow}
               redirect_path="/login"
+            />
+            <ProtectedRoute
+              path="/categories/index"
+              component={CategoryIndex}
+              redirect_path="/login"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/categories/new"
+              component={CategoryNew}
+              redirect_path="/categories/index"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/categories/:id/edit"
+              component={CategoryEdit}
+              redirect_path="/categories/index"
+              admin_required={true}
             />
             <Route path="/not-found" component={NotFound} />;
             <Route path="/" component={HomePage} />
