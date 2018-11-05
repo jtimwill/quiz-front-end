@@ -1,20 +1,20 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../services/userService.js';
-import { getWorkouts } from '../../services/workoutService.js';
+// import { getWorkouts } from '../../services/workoutService.js';
 import Spinner from '../reusable/spinner';
 
 class UserShow extends Component {
   state = {
     user: {},
-    workouts: [],
+    // workouts: [],
     api_response: false
   };
 
   async componentDidMount() {
     const { data: user } = await getUser();
-    const { data: workouts } = await getWorkouts();
-    this.setState({ user, workouts, api_response: true });
+    // const { data: workouts } = await getWorkouts();
+    this.setState({ user, api_response: true });
   }
 
   render() {
@@ -33,10 +33,10 @@ class UserShow extends Component {
               <span className="card-text font-weight-bold">Email: </span>
               {this.state.user.email}
             </li>
-            <li className="list-group-item">
+            {/* <li className="list-group-item">
               <span className="font-weight-bold">Workouts: </span>
               {this.state.workouts.length}
-            </li>
+            </li> */}
           </ul>
           <div className="card-body">
             <Link
