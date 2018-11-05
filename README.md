@@ -51,7 +51,6 @@ Additional resources that helped me:
 /categories/index|CategoryIndex|
 /categories/new|CategoryNew|
 /categories/:id/edit|CategoryEdit|
-/categories/:id/show|CategoryShow|
 
 ### Quizzes Resource
 |URL|Corresponding Component|
@@ -116,6 +115,7 @@ updateUser|PUT /users/me|Update logged-in user|
 |Function|API URL|Result|
 |---|---|---|
 getCategories|GET /categories|Return all categories|
+getCategory|GET /categories/:id|Return specific category|
 saveCategory|POST /categories|Create new category|
 deleteCategory|DELETE /categories/:id|Delete specified category|
 updateCategory|PUT /categories/:id|Update specified category|

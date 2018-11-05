@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
-import { updateCategory /*, getCategory*/ } from '../../services/categoryService.js';
+import { updateCategory, getCategory } from '../../services/categoryService.js';
 
 class CategoryEdit extends Component {
   constructor(props) {
@@ -21,15 +21,15 @@ class CategoryEdit extends Component {
   };
 
   async componentDidMount() {
-    // const category_id = this.props.match.params.id;
-    // try {
-    //   const { data } = await getCategory(category_id);
-    //   this.setState({ category: data });
-    // } catch (exception) {
-    //   if (exception.response && exception.response.status === 404) {
-    //     this.props.history.replace("/not-found");
-    //   }
-    // }
+    const category_id = this.props.match.params.id;
+    try {
+      const { data } = await getCategory(category_id);
+      this.setState({ category: data });
+    } catch (exception) {
+      if (exception.response && exception.response.status === 404) {
+        this.props.history.replace("/not-found");
+      }
+    }
   }
 
   validate() {
