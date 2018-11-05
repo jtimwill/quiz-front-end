@@ -1,12 +1,12 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-// import { login } from '../services/authService';
+import { login } from '../services/authService';
 
 const HomePage = () => {
-  // async function exampleUserLogin() {
-  //   await login("adam@example.com", "123456");
-  //   window.location = "/users/me/show";
-  // }
+  async function exampleUserLogin() {
+    await login("adam@example.com", "123456");
+    window.location = "/users/me/show";
+  }
   return(
     <React.Fragment>
       <div className="jumbotron custom-center">
@@ -22,7 +22,7 @@ const HomePage = () => {
           Register New Account
         </Link>
         <button
-          // onClick={exampleUserLogin}
+          onClick={exampleUserLogin}
           className="btn btn-info btn-lg custom-add-margin-top">
           View Example Account
         </button>

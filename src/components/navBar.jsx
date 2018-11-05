@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Link, NavLink } from 'react-router-dom';
-// import { getCurrentUser } from '../services/authService';
+import { getCurrentUser } from '../services/authService';
 
 class NavBar extends Component {
   state = {
@@ -17,7 +17,7 @@ class NavBar extends Component {
   };
 
   render() {
-    // const user = getCurrentUser();
+    const user = getCurrentUser();
 
     return (
       <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
@@ -33,7 +33,7 @@ class NavBar extends Component {
             className={"navbar-nav custom-" + (this.state.show ? "show" : "hide")}
             onClick={this.hideDropdown}
           >
-            {/* {!user && (
+            {!user && (
               <React.Fragment>
                 <NavLink className="nav-item nav-link" to="/login">
                   Login
@@ -43,7 +43,7 @@ class NavBar extends Component {
                 </NavLink>
               </React.Fragment>
             )}
-            {user && ( */}
+            {user && (
               <React.Fragment>
                 <NavLink className="nav-item nav-link" to="/logout">
                   Logout
@@ -56,7 +56,7 @@ class NavBar extends Component {
                 </NavLink>
               </React.Fragment>
             )}
-            {/* {user && user.admin && ( */}
+            {user && user.admin && (
               <React.Fragment>
                 <NavLink className="nav-item nav-link" to="/users/index">
                   Users
@@ -65,7 +65,7 @@ class NavBar extends Component {
                   Quizzes
                 </NavLink>
               </React.Fragment>
-            {/* )} */}
+            )}
           </div>
         </div>
       </nav>
