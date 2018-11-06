@@ -14,6 +14,9 @@ import UserShow from './components/users/userShow';
 import CategoryIndex from './components/categories/categoryIndex';
 import CategoryNew from './components/categories/categoryNew';
 import CategoryEdit from './components/categories/categoryEdit';
+import QuizIndex from './components/quizzes/quizIndex';
+import QuizNew from './components/quizzes/quizNew';
+import QuizEdit from './components/quizzes/quizEdit';
 
 class App extends Component {
   render() {
@@ -57,6 +60,24 @@ class App extends Component {
               path="/categories/:id/edit"
               component={CategoryEdit}
               redirect_path="/categories/index"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/quizzes/index"
+              component={QuizIndex}
+              redirect_path="/login"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/quizzes/new"
+              component={QuizNew}
+              redirect_path="/quizzes/index"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/quizzes/:id/edit"
+              component={QuizEdit}
+              redirect_path="/quizzes/index"
               admin_required={true}
             />
             <Route path="/not-found" component={NotFound} />;
