@@ -65,7 +65,6 @@ Additional resources that helped me:
 |---|---|
 /questions/new|QuestionNew|
 /questions/:id/edit|QuestionEdit|
-/questions/:id/show|QuestionShow|
 
 ### UserQuizzes Resource
 |URL|Corresponding Component|
