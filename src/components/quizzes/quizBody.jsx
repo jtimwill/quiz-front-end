@@ -6,7 +6,6 @@ const QuizBody = ({ quiz, current_quiz, index, category }) => {
   const btn = "btn-sm btn btn-";
   const fa = "fa fa-";
   const badge = "ml-1 badge badge-secondary";
-  const url_prefix = `/quizzes/${quiz.id}`;
 
   function getCSSClass(quiz, current_quiz) {
     return quiz === current_quiz ? "custom-show" : "custom-hide-2"
@@ -22,7 +21,7 @@ const QuizBody = ({ quiz, current_quiz, index, category }) => {
           <p className="card-text">{quiz.difficulty}</p>
           <h5 className="card-title">Category: </h5>
           <p className="card-text">{category}</p>
-          <Link to={`${url_prefix}/question/index`} className={`${btn}success mx-1`}>
+          <Link to={`/quizzes/${quiz.id}/show`} className={`${btn}success mx-1`}>
             See Questions
           </Link>
         </div>

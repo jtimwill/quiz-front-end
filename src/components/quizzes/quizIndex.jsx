@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { getQuizzes, deleteQuiz } from '../../services/quizService.js';
 import { getCategories } from '../../services/categoryService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
+import { findCategory } from '../../utilities/findUtility.js';
 import './quiz.css';
 import Pagination from '../reusable/pagination';
 import Spinner from '../reusable/spinner';
@@ -101,19 +102,13 @@ class QuizIndex extends Component {
     this.setState({ current_quiz: quiz });
   }
 
-  getCategory(category_id) {
-    const category = this.state.categories.find((category) => {
-      return category.id === category_id;
-    });
-    return category.name;
-  }
-
   render() {
     const page_size = 5;
     const { sort_direction,
             current_page,
             current_quiz,
-            quizzes
+            quizzes,
+            categories
           } = this.state;
 
     return (
@@ -147,7 +142,7 @@ class QuizIndex extends Component {
               quiz={quiz}
               current_quiz={current_quiz}
               index={index}
-              category={this.getCategory(quiz.category_id)}
+              category={findCategory(quiz.category_id, categories)}
             />
           </div>
         ))}
