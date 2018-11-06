@@ -18,6 +18,8 @@ import QuizIndex from './components/quizzes/quizIndex';
 import QuizNew from './components/quizzes/quizNew';
 import QuizEdit from './components/quizzes/quizEdit';
 import QuizShow from './components/quizzes/quizShow';
+import QuestionNew from './components/questions/questionNew';
+import QuestionEdit from './components/questions/questionEdit';
 
 class App extends Component {
   render() {
@@ -84,6 +86,18 @@ class App extends Component {
               path="/quizzes/:id/show"
               component={QuizShow}
               redirect_path="/quizzes/index"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/quizzes/:id/questions/new"
+              component={QuestionNew}
+              redirect_path="/quizzes/:id/show"
+              admin_required={true}
+            />
+            <ProtectedRoute
+              path="/quizzes/:id/questions/:questionId/edit"
+              component={QuestionEdit}
+              redirect_path="/quizzes/:id/show"
               admin_required={true}
             />
             <Route path="/not-found" component={NotFound} />;

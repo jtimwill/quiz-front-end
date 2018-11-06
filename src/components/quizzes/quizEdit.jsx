@@ -87,7 +87,6 @@ class QuizEdit extends Component {
 
   async handleSubmit(event) {
     event.preventDefault();
-    console.log("FANGS!");
 
     const errors = this.validate();
     this.setState({ errors: errors || {} });
