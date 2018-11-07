@@ -22,6 +22,7 @@ Additional resources that helped me:
 * [CSS Transitions](https://developer.mozilla.org/en-US/docs/Web/CSS/CSS_Transitions/Using_CSS_transitions#Defining_transitions)
 * [Window.confirm](https://www.w3schools.com/jsref/met_win_confirm.asp)
 * [Window.confirm in React](https://gist.github.com/primaryobjects/aacf6fa49823afb2f6ff065790a5b402)
+* [React-Router Query Params](https://reacttraining.com/react-router/web/example/query-parameters)
 
 ## Project Setup
 1. Install Node.js: https://nodejs.org/
@@ -71,13 +72,7 @@ Additional resources that helped me:
 |---|---|
 /user-quizzes/index|UserQuizIndex|
 /user-quizzes/new|UserQuizNew|
-/user-quizzes/:id/edit|UserQuizEdit|
 /user-quizzes/:id/show|UserQuizShow|
-
-### UserAnswers Resource
-|URL|Corresponding Component|
-|---|---|
-/user-answers/:id/edit|UserAnswerEdit|
 
 ### Misc Components
 |URL|Corresponding Component|

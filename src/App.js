@@ -20,6 +20,7 @@ import QuizEdit from './components/quizzes/quizEdit';
 import QuizShow from './components/quizzes/quizShow';
 import QuestionNew from './components/questions/questionNew';
 import QuestionEdit from './components/questions/questionEdit';
+import UserQuizNew from './components/user_quizzes/userQuizNew';
 
 class App extends Component {
   render() {
@@ -99,6 +100,11 @@ class App extends Component {
               component={QuestionEdit}
               redirect_path="/quizzes/:id/show"
               admin_required={true}
+            />
+            <ProtectedRoute
+              path="/user-quizzes/new"
+              component={UserQuizNew}
+              redirect_path="/quizzes/index"
             />
             <Route path="/not-found" component={NotFound} />;
             <Route path="/" component={HomePage} />
