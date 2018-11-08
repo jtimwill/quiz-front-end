@@ -2,6 +2,7 @@ import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import { getQuizzes, deleteQuiz } from '../../services/quizService.js';
 import { getCategories } from '../../services/categoryService.js';
+import { getCurrentUser } from '../../services/authService';
 import { compareDates } from '../../utilities/sortUtility.js';
 import { findCategory } from '../../utilities/findUtility.js';
 import './quiz.css';
@@ -32,6 +33,11 @@ class QuizIndex extends Component {
   }
 
   handleQuizDelete = async selected_quiz => {
+    if (!getCurrentUser().admin) {
+      alert("Access Denied, Admin Only");
+      return;
+    }
+
     if (!this.confirmDelete("quiz")) { return; }
     const old_quizzes = this.state.quizzes;
     const new_quizzes = old_quizzes.filter(q => q.id !== selected_quiz.id);
@@ -47,26 +53,6 @@ class QuizIndex extends Component {
       this.setState({ quizzes: old_quizzes });
     }
   };
-
-  // handleQuestionDelete = async (quiz_index, selected_question) => {
-  //   if (!this.confirmDelete("question")) { return; }
-  //   const old_questions = this.state.quizzes[quiz_index].questions;
-  //   const new_questions = old_questions.filter(q => q.id !== selected_question.id);
-  //   const quizzes = [ ...this.state.quizzes ];
-  //
-  //   quizzes[quiz_index].questions = new_questions;
-  //   this.setState({ quizzes });
-  //
-  //   try {
-  //     await deleteQuestion(selected_question.id);
-  //   } catch (exception) {
-  //     if (exception.response && exception.response.status === 404) {
-  //       alert("This question has already been deleted.");
-  //     }
-  //     quizzes[quiz_index].questions = old_questions
-  //     this.setState({ quizzes });
-  //   }
-  // }
 
   handlePageChange = (page_number, page_size) => {
     const length = this.state.quizzes.length;
