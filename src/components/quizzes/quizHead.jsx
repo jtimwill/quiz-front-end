@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const QuizBody = ({ quiz, onQuizSelect, onQuizDelete }) => {
+const QuizHead = ({ quiz, onQuizSelect, onQuizDelete }) => {
   const btn = "btn btn-";
   const fa = "fa fa-";
   const url_prefix = `/quizzes/${quiz.id}`;
@@ -28,10 +28,10 @@ const QuizBody = ({ quiz, onQuizSelect, onQuizDelete }) => {
   );
 };
 
-QuizBody.propTypes = {
+QuizHead.propTypes = {
   quiz: PropTypes.object.isRequired,
   onQuizSelect: PropTypes.func.isRequired,
   onQuizDelete: PropTypes.func.isRequired,
 };
 
-export default QuizBody;
+export default QuizHead;

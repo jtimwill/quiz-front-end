@@ -73,7 +73,6 @@ class UserQuizNew extends Component {
   render() {
     return (
       <div>
-        <h4>Time: {this.state.time}</h4>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
             <h4>Quiz Name: {this.state.quiz.title}</h4>

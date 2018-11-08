@@ -21,6 +21,7 @@ import QuizShow from './components/quizzes/quizShow';
 import QuestionNew from './components/questions/questionNew';
 import QuestionEdit from './components/questions/questionEdit';
 import UserQuizNew from './components/user_quizzes/userQuizNew';
+import UserQuizIndex from './components/user_quizzes/userQuizIndex';
 
 class App extends Component {
   render() {
@@ -102,9 +103,14 @@ class App extends Component {
               admin_required={true}
             />
             <ProtectedRoute
+              path="/user-quizzes/index"
+              component={UserQuizIndex}
+              redirect_path="/login"
+            />
+            <ProtectedRoute
               path="/user-quizzes/new"
               component={UserQuizNew}
-              redirect_path="/quizzes/index"
+              redirect_path="/login"
             />
             <Route path="/not-found" component={NotFound} />;
             <Route path="/" component={HomePage} />

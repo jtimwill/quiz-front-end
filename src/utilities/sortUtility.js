@@ -11,5 +11,5 @@ export function compareNames(a, b) {
 }
 
 export function compareDates(a, b) {
-  return new Date(b.date) - new Date(a.date);
+  return new Date(b.created_at) - new Date(a.created_at);
 }
