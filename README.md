@@ -23,6 +23,7 @@ Additional resources that helped me:
 * [Window.confirm](https://www.w3schools.com/jsref/met_win_confirm.asp)
 * [Window.confirm in React](https://gist.github.com/primaryobjects/aacf6fa49823afb2f6ff065790a5b402)
 * [React-Router Query Params](https://reacttraining.com/react-router/web/example/query-parameters)
+* [ChartJS Integration](https://github.com/jerairrest/react-chartjs-2)
 
 ## Project Setup
 1. Install Node.js: https://nodejs.org/

@@ -20,8 +20,9 @@ import QuizEdit from './components/quizzes/quizEdit';
 import QuizShow from './components/quizzes/quizShow';
 import QuestionNew from './components/questions/questionNew';
 import QuestionEdit from './components/questions/questionEdit';
-import UserQuizNew from './components/user_quizzes/userQuizNew';
 import UserQuizIndex from './components/user_quizzes/userQuizIndex';
+import UserQuizNew from './components/user_quizzes/userQuizNew';
+import UserQuizShow from './components/user_quizzes/userQuizShow';
 
 class App extends Component {
   render() {
@@ -105,6 +106,11 @@ class App extends Component {
             <ProtectedRoute
               path="/user-quizzes/index"
               component={UserQuizIndex}
+              redirect_path="/login"
+            />
+            <ProtectedRoute
+              path="/user-quizzes/:id/show"
+              component={UserQuizShow}
               redirect_path="/login"
             />
             <ProtectedRoute
