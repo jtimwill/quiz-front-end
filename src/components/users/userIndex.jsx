@@ -49,7 +49,7 @@ class UserIndex extends Component {
           </thead>
           <tbody>
             {this.state.users.map(user => (
-              <tr key={user._id}>
+              <tr key={user.id}>
                 <td>{user.name}</td>
                 <td>{user.email}</td>
                 <td>{user.admin.toString()}</td>
