@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { getQuizzes } from '../../services/quizService.js';
 import { getUserQuizzes } from '../../services/userQuizService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
-import { findCategory } from '../../utilities/findUtility.js';
 import { reformatDate } from '../../utilities/dateUtility.js';
 import './user_quiz.css';
 import Pagination from '../reusable/pagination';
@@ -28,7 +27,6 @@ class UserQuizIndex extends Component {
   groupUserQuizzes(quizzes, user_quizzes) {
     let quiz_titles = {};
     let grouped_user_quizzes = {};
-    let current_index = 0;
     let grouped_user_quizzes_array = [];
 
     quizzes.forEach(quiz => quiz_titles[quiz.id] = quiz.title );
@@ -59,7 +57,7 @@ class UserQuizIndex extends Component {
   }
 
   handlePageChange = (page_number, page_size) => {
-    const length = this.state.user_quizzes.length;
+    const length = this.state.grouped_user_quizzes.length;
     const number_of_pages = Math.ceil(length / page_size);
     if (page_number <= 0 ||  page_number > number_of_pages) {
       return;
@@ -86,7 +84,7 @@ class UserQuizIndex extends Component {
   }
 
   render() {
-    const page_size = 5;
+    const page_size = 3;
     const { sort_direction,
             current_page,
             grouped_user_quizzes
@@ -95,30 +93,24 @@ class UserQuizIndex extends Component {
     return (
       <Spinner ready={this.state.api_response}>
         <h4>Select A Quiz</h4>
-        <button onClick={this.toggleSort} className="btn btn-info btn-sm">
+        <button onClick={this.toggleSort} className="btn btn-info btn-sm my-1">
           {"Sort by date "}
           <i className={"fa fa-sort-" + sort_direction}></i>
         </button>
 
-        {this.generatePage(current_page, page_size).map((user_quiz, index) => (
-          <div key={user_quiz.id} className="card">
-            <div className="card-header" >
-              <div className="">
-                <Link
-                  to={`/user-quizzes/${user_quiz.id}/show`}
-                  className={`btn btn-primary mx-1`}
-                >
-                  <span className="font-weight-bold">{user_quiz.title}</span>
-                </Link>
-                <div className="float-right">
-                  <span>Last score: {`${user_quiz.last_score*100}%`} </span>
-                  <span>Last attemped: {reformatDate(user_quiz.created_at)} </span>
-                  <span>Times attempted: {user_quiz.attempts} </span>
-                </div>
-              </div>
+          {this.generatePage(current_page, page_size).map((user_quiz, index) => (
+            <div key={user_quiz.id} className="list-group">
+              <Link
+                to={`/user-quizzes/${user_quiz.id}/show`}
+                className="list-group-item list-group-item-action"
+              >
+                <h5 className="mb-1">{user_quiz.title}</h5>
+                <p className="mb-1">Times attempted: {user_quiz.attempts}</p>
+                <p className="mb-1">Last score: {`${user_quiz.last_score*100}%`}</p>
+                <p className="mb-1">Last attempted: {reformatDate(user_quiz.created_at)}</p>
+              </Link>
             </div>
-          </div>
-        ))}
+          ))}
 
         <Pagination
           page_size={page_size}

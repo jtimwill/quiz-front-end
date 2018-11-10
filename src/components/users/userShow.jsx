@@ -33,10 +33,6 @@ class UserShow extends Component {
               <span className="card-text font-weight-bold">Email: </span>
               {this.state.user.email}
             </li>
-            {/* <li className="list-group-item">
-              <span className="font-weight-bold">Workouts: </span>
-              {this.state.workouts.length}
-            </li> */}
           </ul>
           <div className="card-body">
             <Link

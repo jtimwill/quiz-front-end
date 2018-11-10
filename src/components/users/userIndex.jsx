@@ -34,7 +34,7 @@ class UserIndex extends Component {
   render() {
     return (
       <Spinner ready={this.state.api_response}>
-        <h1>Users</h1>
+        <h4>Users</h4>
         <Link to="/users/new" className="btn btn-primary">
           New User
         </Link>

@@ -109,7 +109,7 @@ class QuizIndex extends Component {
           New Quiz
         </Link>
         <button onClick={this.toggleSort} className="btn btn-info btn-sm">
-          {"Sort by date "}
+          {"date "}
           <i className={"fa fa-sort-" + sort_direction}></i>
         </button>
 

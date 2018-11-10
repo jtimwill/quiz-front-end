@@ -62,7 +62,7 @@ class UserQuizNew extends Component {
 
     try {
       await saveUserQuiz(user_quiz);
-      this.props.history.push('/users/me/show');
+      this.props.history.replace("/user-quizzes/index");
     } catch (exception) {
       if (exception.response && exception.response.status === 400) {
         alert(exception.response.data.errors[0].message);

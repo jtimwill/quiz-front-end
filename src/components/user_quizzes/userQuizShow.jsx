@@ -3,7 +3,6 @@ import { Link } from 'react-router-dom';
 import { getQuiz } from '../../services/quizService.js';
 import { getUserQuizzes } from '../../services/userQuizService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
-import { findCategory } from '../../utilities/findUtility.js';
 import { reformatDate } from '../../utilities/dateUtility.js';
 import './user_quiz.css';
 import Pagination from '../reusable/pagination';
@@ -16,8 +15,9 @@ class UserQuizShow extends Component {
     user_quizzes: [],
     current_page: 1,
     sort_direction: "desc",
-    current_user_quiz: {},
-    api_response: false
+    current_user_quiz: { user_answers: []},
+    api_response: false,
+    show_modal: false
   };
 
   data = {
@@ -27,17 +27,17 @@ class UserQuizShow extends Component {
         label: 'Quiz Scores',
         fill: false,
         lineTension: 0.1,
-        backgroundColor: 'rgba(75,192,192,0.4)',
-        borderColor: 'rgba(75,192,192,1)',
+        backgroundColor: 'rgb(0,123,255,0.4)',
+        borderColor: 'rgb(0,123,255,1)',
         borderCapStyle: 'butt',
         borderDash: [],
         borderDashOffset: 0.0,
         borderJoinStyle: 'miter',
-        pointBorderColor: 'rgba(75,192,192,1)',
+        pointBorderColor: 'rgb(0,123,255,1)',
         pointBackgroundColor: '#fff',
         pointBorderWidth: 1,
         pointHoverRadius: 5,
-        pointHoverBackgroundColor: 'rgba(75,192,192,1)',
+        pointHoverBackgroundColor: 'rgb(0,123,255,1)',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
         pointRadius: 1,
@@ -58,6 +58,7 @@ class UserQuizShow extends Component {
       this.data.labels.push(reformatDate(user_quiz.created_at));
       this.data.datasets[0].data.push(this.reformatScore(user_quiz.score));
     })
+    this.data.datasets[0].data.reverse();
 
     try {
       const { data: quiz } = await getQuiz(quiz_id);
@@ -98,16 +99,20 @@ class UserQuizShow extends Component {
   }
 
   handleUserQuizSelect = user_quiz => {
+    const show_modal = !this.state.show_modal;
     if (user_quiz === this.state.current_user_quiz) {
-      user_quiz = {};
+      user_quiz = { user_answers: [] };
     }
-    this.setState({ current_user_quiz: user_quiz });
+    this.setState({ current_user_quiz: user_quiz, show_modal });
+  }
+
+  hideModal = () => {
+    this.setState({ show_modal: false });
   }
 
   reformatScore(score) {
     return (score*100).toPrecision(3);
   }
-
 
   render() {
     const page_size = 5;
@@ -120,43 +125,93 @@ class UserQuizShow extends Component {
 
     return (
       <Spinner ready={this.state.api_response}>
-        <h4>Quiz: {quiz.title}</h4>
 
-        <div>
-          <Line data={this.data} />
+        <div className="card my-2">
+          <div className="card-header bg-light">
+            <h4 className="card-title">Quiz: {quiz.title}</h4>
+          </div>
+          <div className="card-body">
+            <Line data={this.data}/>
+          </div>
+          <ul className="list-group list-group-flush">
+            <li className="list-group-item">
+              <span className="card-text font-weight-bold">Attempts:  </span>
+              {user_quizzes.length}
+            </li>
+          </ul>
+          <div className="card-body">
+            <Link
+              to={`/user-quizzes/new?quiId=${quiz.id}`}
+              className="btn btn-lg btn-primary"
+            >
+              Try Again
+            </Link>
+          </div>
         </div>
 
-        <h4>Attempts: {user_quizzes.length}</h4>
-        <button onClick={this.toggleSort} className="btn btn-info btn-sm">
-          {"Sort by date "}
-          <i className={"fa fa-sort-" + sort_direction}></i>
-        </button>
-
-        {this.generatePage(current_page, page_size).map((user_quiz, index) => (
-          <div key={user_quiz.id} className={"my-1 card " + (user_quiz === current_user_quiz ? "border-primary" : "")}>
-            <div className="card-header custom-hover-cursor" onClick={() => this.handleUserQuizSelect(user_quiz)}>
-              <div className="">
-                <span className="font-weight-bold">Date: {reformatDate(user_quiz.created_at)} </span>
-                <div className="float-right">
-                  <span className="font-weight-bold">Score: {this.reformatScore(user_quiz.score) + "%"} </span>
-                  <span className="font-weight-bold">Time: {user_quiz.time} </span>
-                </div>
+        <div className={this.state.show_modal ? "custom-modal" : "custom-modal-hide"}>
+          <div className="modal-dialog">
+            <div className="modal-content">
+              <div className="modal-header">
+                <h5 className="modal-title">Your Answers:</h5>
+                <button
+                  type="button"
+                  className="close"
+                  onClick={this.hideModal}
+                >
+                  <span>&times;</span>
+                </button>
               </div>
-              <div className={user_quiz === current_user_quiz ? "custom-show" : "custom-hide-2"}>
-                <div className="card-body">
-                  <h5 className="card-title">Description: </h5>
-                  <ul className="list-group list-group-flush">
-                    {user_quiz.user_answers.map(user_answer => (
-                      <li key={user_answer.id} className="list-group-item">
-                        Your Answer: "{user_answer.answer}" Correct: {user_answer.correct.toString()}
-                      </li>
-                    ))}
-                  </ul>
-                </div>
+              <div className="modal-body">
+                <ul className="list-group list-group-flush">
+                  {current_user_quiz.user_answers.map((user_answer, index) => (
+                    <li key={user_answer.id} className="list-group-item">
+                      Q{index} Answer: "{user_answer.answer}" {user_answer.correct? "(Right)" : "(Wrong)"}
+                    </li>
+                  ))}
+                </ul>
+              </div>
+              <div className="modal-footer">
+                <button
+                  type="button"
+                  className="btn btn-secondary"
+                  data-dismiss="modal"
+                  onClick={this.hideModal}
+                >
+                  Close
+                </button>
               </div>
             </div>
           </div>
-        ))}
+        </div>
+
+
+        <table className="table table-hover table-bordered">
+          <thead>
+            <tr>
+              <th scope="col" >#</th>
+              <th scope="col" onClick={this.toggleSort} className="pointer-on-hover">
+                Date <i className={"fa fa-sort-" + sort_direction}></i>
+              </th>
+              <th scope="col">Score</th>
+              <th scope="col">Time (sec)</th>
+            </tr>
+          </thead>
+          <tbody>
+            {this.generatePage(current_page, page_size).map((user_quiz, index) => (
+              <tr
+                key={user_quiz.id}
+                className="pointer-on-hover"
+                onClick={() => this.handleUserQuizSelect(user_quiz)}
+              >
+                <th scope="row">{index}</th>
+                <td>{reformatDate(user_quiz.created_at)}</td>
+                <td>{this.reformatScore(user_quiz.score) + "%"}</td>
+                <td>{user_quiz.time}</td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
 
         <Pagination
           page_size={page_size}

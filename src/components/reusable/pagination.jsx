@@ -6,8 +6,8 @@ const Pagination = ({ page_size, item_count, current_page, onPageChange }) => {
   const pg_num_array = pageNumbers(page_size, item_count);
 
   return (
-    <React.Fragment>
-      {(page_size <= item_count) &&
+    <div className="d-flex justify-content-center">
+      {(page_size < item_count) &&
         <nav className="custom-pagination-margin">
           <ul className="pagination">
             <li
@@ -35,7 +35,7 @@ const Pagination = ({ page_size, item_count, current_page, onPageChange }) => {
             </li>
           </ul>
         </nav>}
-    </React.Fragment>
+    </div>
   );
 };
 

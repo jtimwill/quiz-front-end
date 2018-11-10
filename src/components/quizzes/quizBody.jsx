@@ -4,8 +4,6 @@ import PropTypes from 'prop-types';
 
 const QuizBody = ({ quiz, current_quiz, index, category }) => {
   const btn = "btn-sm btn btn-";
-  const fa = "fa fa-";
-  const badge = "ml-1 badge badge-secondary";
 
   function getCSSClass(quiz, current_quiz) {
     return quiz === current_quiz ? "custom-show" : "custom-hide-2"
@@ -24,7 +22,7 @@ const QuizBody = ({ quiz, current_quiz, index, category }) => {
           <Link to={`/user-quizzes/new?quiId=${quiz.id}`} className={`${btn}success mx-1`}>
             Start Quiz
           </Link>
-          <Link to={`/quizzes/${quiz.id}/show`} className={`${btn}success mx-1`}>
+          <Link to={`/quizzes/${quiz.id}/show`} className={`${btn}info mx-1`}>
             Edit Questions
           </Link>
         </div>

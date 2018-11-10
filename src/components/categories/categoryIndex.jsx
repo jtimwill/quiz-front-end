@@ -64,7 +64,7 @@ class CategoryIndex extends Component {
         <div className="container">
           <div className="row">
             <div className="col-sm">
-              <h1>Categories</h1>
+              <h4>Categories</h4>
             </div>
             <div className="col-sm">
               <Link to="/categories/new" className="btn btn-primary">New Category</Link>
