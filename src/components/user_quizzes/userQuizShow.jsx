@@ -139,7 +139,7 @@ class UserQuizShow extends Component {
           </ul>
           <div className="card-body">
             <Link
-              to={`/user-quizzes/new?quiId=${quiz.id}`}
+              to={`/user-quizzes/new?quizId=${quiz.id}`}
               className="btn btn-lg btn-primary"
             >
               Try Again

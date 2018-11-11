@@ -24,7 +24,7 @@ class UserQuizNew extends Component {
   }
 
   async componentDidMount() {
-    const quiz_id = this.getQueryParam("?quiId=", this.props.location.search);
+    const quiz_id = this.getQueryParam("?quizId=", this.props.location.search);
     const { data: quiz } = await getQuiz(quiz_id);
     let user_quiz = { ...this.state.user_quiz };
     user_quiz.user_id = getCurrentUser().id.toString();
