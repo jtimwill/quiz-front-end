@@ -4,7 +4,6 @@ import { getQuizzes } from '../../services/quizService.js';
 import { getUserQuizzes } from '../../services/userQuizService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
 import { reformatDate } from '../../utilities/dateUtility.js';
-import './user_quiz.css';
 import Pagination from '../reusable/pagination';
 import Spinner from '../reusable/spinner';
 
@@ -98,7 +97,7 @@ class UserQuizIndex extends Component {
           <i className={"fa fa-sort-" + sort_direction}></i>
         </button>
 
-          {this.generatePage(current_page, page_size).map((user_quiz, index) => (
+          {this.generatePage(current_page, page_size).map((user_quiz) => (
             <div key={user_quiz.id} className="list-group">
               <Link
                 to={`/user-quizzes/${user_quiz.id}/show`}
@@ -106,8 +105,12 @@ class UserQuizIndex extends Component {
               >
                 <h5 className="mb-1">{user_quiz.title}</h5>
                 <p className="mb-1">Times attempted: {user_quiz.attempts}</p>
-                <p className="mb-1">Last score: {`${user_quiz.last_score*100}%`}</p>
-                <p className="mb-1">Last attempted: {reformatDate(user_quiz.created_at)}</p>
+                <p className="mb-1">
+                  Last score: {`${user_quiz.last_score*100}%`}
+                </p>
+                <p className="mb-1">
+                  Last attempted: {reformatDate(user_quiz.created_at)}
+                </p>
               </Link>
             </div>
           ))}

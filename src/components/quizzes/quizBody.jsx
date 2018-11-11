@@ -19,7 +19,10 @@ const QuizBody = ({ quiz, current_quiz, index, category }) => {
           <p className="card-text">{quiz.difficulty}</p>
           <h5 className="card-title">Category: </h5>
           <p className="card-text">{category}</p>
-          <Link to={`/user-quizzes/new?quiId=${quiz.id}`} className={`${btn}success mx-1`}>
+          <Link
+            to={`/user-quizzes/new?quiId=${quiz.id}`}
+            className={`${btn}success mx-1`}
+          >
             Start Quiz
           </Link>
           <Link to={`/quizzes/${quiz.id}/show`} className={`${btn}info mx-1`}>

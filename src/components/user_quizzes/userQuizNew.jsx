@@ -48,8 +48,9 @@ class UserQuizNew extends Component {
   }
 
   handleChange(event) {
+    const value = event.currentTarget.value;
     const user_quiz = { ...this.state.user_quiz };
-    user_quiz.user_answers[event.currentTarget.name].answer = event.currentTarget.value;
+    user_quiz.user_answers[event.currentTarget.name].answer = value;
 
     this.setState({ user_quiz });
   }
@@ -78,7 +79,9 @@ class UserQuizNew extends Component {
             <h4>Quiz Name: {this.state.quiz.title}</h4>
             {this.state.quiz.questions.map((question, index) => (
               <div key={question.id} className="form-group">
-                <label htmlFor={"inlineFormInputTitle" + index}>{question.question}</label>
+                <label htmlFor={"inlineFormInputTitle" + index}>
+                  {question.question}
+                </label>
                 <input
                   name={index}
                   type="text"

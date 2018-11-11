@@ -24,7 +24,9 @@ class Login extends Component {
   };
 
   validate() {
-    const { error: errors } = Joi.validate(this.state.user, this.schema, { abortEarly: false });
+    const { error: errors } = Joi.validate(
+      this.state.user, this.schema, { abortEarly: false }
+    );
     if (!errors) return null;
 
     const found_errors = {};
@@ -93,7 +95,10 @@ class Login extends Component {
                 value={this.state.username}
                 onChange={this.handleChange}
               />
-              {this.state.errors.email && <div className="alert alert-danger">{this.state.errors.email}</div>}
+              {this.state.errors.email &&
+                <div className="alert alert-danger">
+                  {this.state.errors.email}
+                </div>}
             </div>
             <div className="form-group">
               <label htmlFor="inlineFormInputPassword">Password</label>
@@ -105,7 +110,10 @@ class Login extends Component {
                 value={this.state.password}
                 onChange={this.handleChange}
               />
-              {this.state.errors.password && <div className="alert alert-danger">{this.state.errors.password}</div>}
+              {this.state.errors.password &&
+                <div className="alert alert-danger">
+                  {this.state.errors.password}
+                </div>}
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>

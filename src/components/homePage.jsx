@@ -3,6 +3,8 @@ import { Link } from 'react-router-dom';
 import { login } from '../services/authService';
 
 const HomePage = () => {
+  const btn = "btn btn-lg btn-";
+
   async function exampleUserLogin() {
     await login("adam@example.com", "123456");
     window.location = "/users/me/show";
@@ -18,12 +20,12 @@ const HomePage = () => {
         <hr className="my-4"/>
         <Link
           to="/users/new"
-          className="btn btn-danger btn-lg custom-right-margin custom-add-margin-top">
+          className={`${btn}danger custom-right-margin custom-add-margin-top`}>
           Register New Account
         </Link>
         <button
           onClick={exampleUserLogin}
-          className="btn btn-info btn-lg custom-add-margin-top">
+          className={`${btn}info  custom-add-margin-top`}>
           View Example Account
         </button>
       </div>

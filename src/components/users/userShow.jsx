@@ -1,19 +1,16 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import { getUser } from '../../services/userService.js';
-// import { getWorkouts } from '../../services/workoutService.js';
 import Spinner from '../reusable/spinner';
 
 class UserShow extends Component {
   state = {
     user: {},
-    // workouts: [],
     api_response: false
   };
 
   async componentDidMount() {
     const { data: user } = await getUser();
-    // const { data: workouts } = await getWorkouts();
     this.setState({ user, api_response: true });
   }
 

@@ -8,18 +8,18 @@ const QuizHead = ({ quiz, onQuizSelect, onQuizDelete }) => {
   const url_prefix = `/quizzes/${quiz.id}`;
   return (
     <div
-      className="card-header custom-hover-cursor"
+      className="card-header custom-hover"
       onClick={() => onQuizSelect(quiz)}>
       <div className="">
         <span className="font-weight-bold">Title: {quiz.title} </span>
-        <span className="badge badge-pill badge-primary">
-          {/* {quiz.questions.length} */}
-        </span>
         <div className="float-right">
           <Link to={`${url_prefix}/edit`} className={`${btn}info mx-1`}>
             <i className={`${fa}pencil-square-o`}></i>
           </Link>
-          <button onClick={() => onQuizDelete(quiz)} className={`${btn}danger mx-1`}>
+          <button
+            onClick={() => onQuizDelete(quiz)}
+            className={`${btn}danger mx-1`}
+          >
             <i className={`${fa}trash`}></i>
           </button>
         </div>

@@ -63,16 +63,17 @@ class QuizShow extends Component {
   }
 
   render() {
+    const { quiz, categories } = this.state;
     return (
       <div className="container">
         <div className="row">
           <div className="col-sm">
             <h4 className="text-capitalize">
-              <p>Title: {this.state.quiz.title}</p>
-              <p>Description: {this.state.quiz.description}</p>
-              <p>Difficulty: {this.state.quiz.difficulty}</p>
-              <p>Category: {findCategory(this.state.quiz.category_id, this.state.categories)}</p>
-              <p>Questions: {this.state.quiz.questions.length}</p>
+              <p>Title: {quiz.title}</p>
+              <p>Description: {quiz.description}</p>
+              <p>Difficulty: {quiz.difficulty}</p>
+              <p>Category: {findCategory(quiz.category_id, categories)}</p>
+              <p>Questions: {quiz.questions.length}</p>
             </h4>
           </div>
           <div className="col-sm">
@@ -83,7 +84,7 @@ class QuizShow extends Component {
                   <th scope="col">Answer</th>
                   <th scope="col" colSpan="2">
                     <Link
-                      to={"/quizzes/" + this.state.quiz.id + "/questions/new"}
+                      to={`/quizzes/${quiz.id}/questions/new`}
                       className="btn btn-primary">
                       New Question
                     </Link>
@@ -91,13 +92,13 @@ class QuizShow extends Component {
                 </tr>
               </thead>
               <tbody>
-                {this.state.quiz.questions.map(question => (
+                {quiz.questions.map(question => (
                   <tr key={question.id}>
                     <td>{question.question}</td>
                     <td>{question.answer}</td>
                     <td>
                       <Link
-                        to={"/quizzes/" + this.state.quiz.id + "/questions/" + question.id + "/edit"}
+                        to={`/quizzes/${quiz.id}/questions/${question.id}/edit`}
                         className="btn btn-info btn-sm">
                         Edit
                       </Link>

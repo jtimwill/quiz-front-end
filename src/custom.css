@@ -86,6 +86,24 @@ form {
   margin-top: 25px;
 }
 
-.custom-hover-cursor:hover {
+.custom-hover:hover {
   cursor: pointer;
+}
+
+.custom-modal-hide {
+  display: none;
+  overflow: hidden;
+}
+
+.custom-modal {
+  display: block;
+  position: fixed;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  overflow-y: auto;
+  outline: 0;
+  z-index: 1072;
+  background-color: rgba(0, 0, 0, 0.5);
 }

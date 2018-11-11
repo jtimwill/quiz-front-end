@@ -4,7 +4,6 @@ import { getQuiz } from '../../services/quizService.js';
 import { getUserQuizzes } from '../../services/userQuizService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
 import { reformatDate } from '../../utilities/dateUtility.js';
-import './user_quiz.css';
 import Pagination from '../reusable/pagination';
 import Spinner from '../reusable/spinner';
 import {Line} from 'react-chartjs-2';
@@ -20,7 +19,7 @@ class UserQuizShow extends Component {
     show_modal: false
   };
 
-  data = {
+  chart_data = {
     labels: [],
     datasets: [
       {
@@ -55,10 +54,10 @@ class UserQuizShow extends Component {
     user_quizzes.sort(compareDates);
     this.setState({ user_quizzes, api_response: true });
     user_quizzes.forEach((user_quiz) => {
-      this.data.labels.push(reformatDate(user_quiz.created_at));
-      this.data.datasets[0].data.push(this.reformatScore(user_quiz.score));
+      this.chart_data.labels.push(reformatDate(user_quiz.created_at));
+      this.chart_data.datasets[0].data.push(this.reformatScore(user_quiz.score));
     })
-    this.data.datasets[0].data.reverse();
+    this.chart_data.datasets[0].data.reverse();
 
     try {
       const { data: quiz } = await getQuiz(quiz_id);
@@ -120,22 +119,21 @@ class UserQuizShow extends Component {
             current_page,
             user_quizzes,
             quiz,
-            current_user_quiz
+            current_user_quiz,
+            show_modal
           } = this.state;
-
     return (
       <Spinner ready={this.state.api_response}>
-
         <div className="card my-2">
           <div className="card-header bg-light">
             <h4 className="card-title">Quiz: {quiz.title}</h4>
           </div>
           <div className="card-body">
-            <Line data={this.data}/>
+            <Line data={this.chart_data}/>
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">
-              <span className="card-text font-weight-bold">Attempts:  </span>
+              <span className="card-text font-weight-bold">Attempts: </span>
               {user_quizzes.length}
             </li>
           </ul>
@@ -148,8 +146,7 @@ class UserQuizShow extends Component {
             </Link>
           </div>
         </div>
-
-        <div className={this.state.show_modal ? "custom-modal" : "custom-modal-hide"}>
+        <div className={show_modal ? "custom-modal" : "custom-modal-hide"}>
           <div className="modal-dialog">
             <div className="modal-content">
               <div className="modal-header">
@@ -166,7 +163,8 @@ class UserQuizShow extends Component {
                 <ul className="list-group list-group-flush">
                   {current_user_quiz.user_answers.map((user_answer, index) => (
                     <li key={user_answer.id} className="list-group-item">
-                      Q{index} Answer: "{user_answer.answer}" {user_answer.correct? "(Right)" : "(Wrong)"}
+                      Q{index} Answer: "{user_answer.answer}"
+                      {user_answer.correct ? " (Right)" : " (Wrong)"}
                     </li>
                   ))}
                 </ul>
@@ -184,13 +182,15 @@ class UserQuizShow extends Component {
             </div>
           </div>
         </div>
-
-
         <table className="table table-hover table-bordered">
           <thead>
             <tr>
               <th scope="col" >#</th>
-              <th scope="col" onClick={this.toggleSort} className="pointer-on-hover">
+              <th
+                scope="col"
+                onClick={this.toggleSort}
+                className="custom-hover"
+              >
                 Date <i className={"fa fa-sort-" + sort_direction}></i>
               </th>
               <th scope="col">Score</th>
@@ -201,7 +201,7 @@ class UserQuizShow extends Component {
             {this.generatePage(current_page, page_size).map((user_quiz, index) => (
               <tr
                 key={user_quiz.id}
-                className="pointer-on-hover"
+                className="custom-hover"
                 onClick={() => this.handleUserQuizSelect(user_quiz)}
               >
                 <th scope="row">{index}</th>
@@ -212,7 +212,6 @@ class UserQuizShow extends Component {
             ))}
           </tbody>
         </table>
-
         <Pagination
           page_size={page_size}
           item_count={user_quizzes.length}

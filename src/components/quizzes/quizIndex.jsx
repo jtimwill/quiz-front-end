@@ -5,7 +5,6 @@ import { getCategories } from '../../services/categoryService.js';
 import { getCurrentUser } from '../../services/authService';
 import { compareDates } from '../../utilities/sortUtility.js';
 import { findCategory } from '../../utilities/findUtility.js';
-import './quiz.css';
 import Pagination from '../reusable/pagination';
 import Spinner from '../reusable/spinner';
 import QuizHead from './quizHead'
@@ -116,7 +115,8 @@ class QuizIndex extends Component {
         {this.generatePage(current_page, page_size).map((quiz, index) => (
           <div
             key={quiz.id}
-            className={"my-1 card " + (quiz === current_quiz ? "border-primary" : "")}
+            className={"my-1 card " +
+            (quiz === current_quiz ? "border-primary" : "")}
           >
             <QuizHead
               quiz={quiz}

@@ -23,7 +23,9 @@ class QuestionNew extends Component {
   };
 
   validate() {
-    const { error: errors } = Joi.validate(this.state.question, this.schema, { abortEarly: false });
+    const { error: errors } = Joi.validate(
+      this.state.question, this.schema, { abortEarly: false }
+    );
     if (!errors) return null;
 
     const found_errors = {};
@@ -91,7 +93,10 @@ class QuestionNew extends Component {
                 id="inlineFormInputQuestion"
                 onChange={this.handleChange}
               />
-              {this.state.errors.question && <div className="alert alert-danger">{this.state.errors.question}</div>}
+              {this.state.errors.question &&
+                <div className="alert alert-danger">
+                  {this.state.errors.question}
+                </div>}
             </div>
             <div className="form-group">
               <label htmlFor="inlineFormInputAnswer">Answer</label>
@@ -102,7 +107,10 @@ class QuestionNew extends Component {
                 id="inlineFormInputAnswer"
                 onChange={this.handleChange}
               />
-              {this.state.errors.answer && <div className="alert alert-danger">{this.state.errors.answer}</div>}
+              {this.state.errors.answer &&
+                <div className="alert alert-danger">
+                  {this.state.errors.answer}
+                </div>}
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>

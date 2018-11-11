@@ -1,7 +1,6 @@
 import React, { Component} from 'react';
 import { Link } from 'react-router-dom';
 import { getCategories, deleteCategory } from '../../services/categoryService.js';
-// import { getCurrentUser } from '../../services/authService';
 import Spinner from '../reusable/spinner';
 import { compareNames } from '../../utilities/sortUtility.js';
 
@@ -19,11 +18,6 @@ class CategoryIndex extends Component {
   }
 
   async handleDelete(selected_category) {
-    // if (!getCurrentUser().admin) {
-    //   alert("Access Denied, Admin Only");
-    //   return;
-    // }
-
     const old_categories = this.state.categories;
     const new_categories = old_categories.filter(category => {
       return category.id !== selected_category.id;
@@ -54,7 +48,7 @@ class CategoryIndex extends Component {
 
   handleCategorySelect = (category_name) => {
     const categories = this.state.categories;
-    const category = categories.find(category => category.name === category_name);
+    const category = categories.find(cat => cat.name === category_name);
     this.handleRowSelect(category);
   };
 
@@ -67,7 +61,9 @@ class CategoryIndex extends Component {
               <h4>Categories</h4>
             </div>
             <div className="col-sm">
-              <Link to="/categories/new" className="btn btn-primary">New Category</Link>
+              <Link to="/categories/new" className="btn btn-primary">
+                New Category
+              </Link>
               <table className="table table-sm table-bordered">
                 <thead>
                   <tr>

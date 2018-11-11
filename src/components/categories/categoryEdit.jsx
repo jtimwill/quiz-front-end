@@ -33,7 +33,9 @@ class CategoryEdit extends Component {
   }
 
   validate() {
-    const { error: errors } = Joi.validate({ value: this.state.category.name }, this.schema, { abortEarly: false });
+    const { error: errors } = Joi.validate(
+      { value: this.state.category.name }, this.schema, { abortEarly: false }
+    );
     if (!errors) return null;
 
     const found_errors = {};
@@ -95,7 +97,10 @@ class CategoryEdit extends Component {
                 value={this.state.category.name}
                 onChange={this.handleChange}
               />
-              {this.state.errors.value && <div className="alert alert-danger">{this.state.errors.value}</div>}
+              {this.state.errors.value &&
+                <div className="alert alert-danger">
+                  {this.state.errors.value}
+                </div>}
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>

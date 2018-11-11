@@ -53,7 +53,9 @@ class QuizEdit extends Component {
   }
 
   validate() {
-    const { error: errors } = Joi.validate(this.state.quiz, this.schema, { abortEarly: false });
+    const { error: errors } = Joi.validate(
+      this.state.quiz, this.schema, { abortEarly: false }
+    );
     if (!errors) return null;
 
     const found_errors = {};
@@ -120,7 +122,10 @@ class QuizEdit extends Component {
                 value={this.state.quiz.title}
                 onChange={this.handleChange}
               />
-              {this.state.errors.title && <div className="alert alert-danger">{this.state.errors.title}</div>}
+              {this.state.errors.title &&
+                <div className="alert alert-danger">
+                  {this.state.errors.title}
+                </div>}
             </div>
             <div className="form-group">
               <label htmlFor="inlineFormInputDescription">Description</label>
@@ -132,7 +137,10 @@ class QuizEdit extends Component {
                 value={this.state.quiz.description}
                 onChange={this.handleChange}
               />
-              {this.state.errors.description && <div className="alert alert-danger">{this.state.errors.description}</div>}
+              {this.state.errors.description &&
+                <div className="alert alert-danger">
+                  {this.state.errors.description}
+                </div>}
             </div>
             <div className="form-group">
               <label htmlFor="inputGroupSelect00">Difficulty</label>
@@ -150,7 +158,10 @@ class QuizEdit extends Component {
                   </option>
                 ))}
               </select>
-              {this.state.errors.difficulty && <div className="alert alert-danger">{this.state.errors.difficulty}</div>}
+              {this.state.errors.difficulty &&
+                <div className="alert alert-danger">
+                  {this.state.errors.difficulty}
+                </div>}
             </div>
             <div className="form-group">
               <label htmlFor="inputGroupSelect01">Category</label>
@@ -168,7 +179,10 @@ class QuizEdit extends Component {
                   </option>
                 ))}
               </select>
-              {this.state.errors.category_id && <div className="alert alert-danger">{this.state.errors.category_id}</div>}
+              {this.state.errors.category_id &&
+                <div className="alert alert-danger">
+                  {this.state.errors.category_id}
+                </div>}
             </div>
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
