@@ -83,7 +83,7 @@ class UserNew extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
-            <h4>New User</h4>
+            <h5>New User</h5>
             <div className="form-group">
               <label htmlFor="inlineFormInputName">Name</label>
               <input

@@ -19,7 +19,7 @@ class UserShow extends Component {
       <Spinner ready={this.state.api_response}>
         <div className="card">
           <div className="card-header bg-light">
-            <h4 className="card-title">Profile</h4>
+            <h5 className="card-title">Profile</h5>
           </div>
           <ul className="list-group list-group-flush">
             <li className="list-group-item">

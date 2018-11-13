@@ -95,7 +95,7 @@ class UserEdit extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
-            <h4>Edit User</h4>
+            <h5>Edit User</h5>
             <div className="form-group">
               <label htmlFor="inlineFormInputName">Name</label>
               <input

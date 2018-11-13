@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { saveUserQuiz } from '../../services/userQuizService.js';
 import { getQuiz } from '../../services/quizService.js';
 import { getCurrentUser } from '../../services/authService.js';
+import GenericQuiz from '../reusable/genericQuiz';
 
 class UserQuizNew extends Component {
   constructor(props) {
@@ -74,26 +75,11 @@ class UserQuizNew extends Component {
   render() {
     return (
       <div>
-        <form onSubmit={this.handleSubmit} className="card bg-light">
-          <div className="card-body">
-            <h4>Quiz Name: {this.state.quiz.title}</h4>
-            {this.state.quiz.questions.map((question, index) => (
-              <div key={question.id} className="form-group">
-                <label htmlFor={"inlineFormInputTitle" + index}>
-                  {question.question}
-                </label>
-                <input
-                  name={index}
-                  type="text"
-                  className="form-control"
-                  id={"inlineFormInputTitle" + index}
-                  onChange={this.handleChange}
-                />
-              </div>
-            ))}
-            <button type="submit" className="btn btn-primary">Submit</button>
-          </div>
-        </form>
+        <GenericQuiz
+          quiz={this.state.quiz}
+          onFormSubmit={this.handleSubmit}
+          onInputChange={this.handleChange}
+        />
       </div>
     );
   }

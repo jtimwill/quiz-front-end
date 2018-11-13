@@ -4,9 +4,10 @@ import { getQuiz } from '../../services/quizService.js';
 import { getUserQuizzes } from '../../services/userQuizService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
 import { reformatDate } from '../../utilities/dateUtility.js';
+import { reformatScore } from '../../utilities/scoreUtility.js';
 import Pagination from '../reusable/pagination';
 import Spinner from '../reusable/spinner';
-import {Line} from 'react-chartjs-2';
+import { Line } from 'react-chartjs-2';
 
 class UserQuizShow extends Component {
   state = {
@@ -25,8 +26,8 @@ class UserQuizShow extends Component {
       {
         label: 'Quiz Scores',
         fill: false,
-        lineTension: 0.1,
-        backgroundColor: 'rgb(0,123,255,0.4)',
+        lineTension: 0.2,
+        backgroundColor: 'rgb(0,123,255,0.2)',
         borderColor: 'rgb(0,123,255,1)',
         borderCapStyle: 'butt',
         borderDash: [],
@@ -34,12 +35,12 @@ class UserQuizShow extends Component {
         borderJoinStyle: 'miter',
         pointBorderColor: 'rgb(0,123,255,1)',
         pointBackgroundColor: '#fff',
-        pointBorderWidth: 1,
-        pointHoverRadius: 5,
+        pointBorderWidth: 3,
+        pointHoverRadius: 6,
         pointHoverBackgroundColor: 'rgb(0,123,255,1)',
         pointHoverBorderColor: 'rgba(220,220,220,1)',
         pointHoverBorderWidth: 2,
-        pointRadius: 1,
+        pointRadius: 3,
         pointHitRadius: 10,
         data: []
       }
@@ -55,7 +56,7 @@ class UserQuizShow extends Component {
     this.setState({ user_quizzes, api_response: true });
     user_quizzes.forEach((user_quiz) => {
       this.chart_data.labels.push(reformatDate(user_quiz.created_at));
-      this.chart_data.datasets[0].data.push(this.reformatScore(user_quiz.score));
+      this.chart_data.datasets[0].data.push(reformatScore(user_quiz.score));
     })
     this.chart_data.datasets[0].data.reverse();
 
@@ -109,10 +110,6 @@ class UserQuizShow extends Component {
     this.setState({ show_modal: false });
   }
 
-  reformatScore(score) {
-    return (score*100).toPrecision(3);
-  }
-
   render() {
     const page_size = 5;
     const { sort_direction,
@@ -126,7 +123,7 @@ class UserQuizShow extends Component {
       <Spinner ready={this.state.api_response}>
         <div className="card my-2">
           <div className="card-header bg-light">
-            <h4 className="card-title">Quiz: {quiz.title}</h4>
+            <h5 className="card-title">Quiz: {quiz.title}</h5>
           </div>
           <div className="card-body">
             <Line data={this.chart_data}/>
@@ -206,8 +203,8 @@ class UserQuizShow extends Component {
               >
                 <th scope="row">{index}</th>
                 <td>{reformatDate(user_quiz.created_at)}</td>
-                <td>{this.reformatScore(user_quiz.score) + "%"}</td>
-                <td>{user_quiz.time}</td>
+                <td>{reformatScore(user_quiz.score) + "%"}</td>
+                <td>{user_quiz.time.toFixed(2)}</td>
               </tr>
             ))}
           </tbody>

@@ -84,7 +84,7 @@ class Login extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
-            <h4>Login</h4>
+            <h5>Login</h5>
             <div className="form-group">
               <label htmlFor="inlineFormInputEmail">Email</label>
               <input

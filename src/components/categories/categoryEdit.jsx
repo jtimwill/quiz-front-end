@@ -87,7 +87,7 @@ class CategoryEdit extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
-            <h4>Edit Category</h4>
+            <h5>Edit Category</h5>
             <div className="form-group">
               <label htmlFor="inlineFormInputName">Name</label>
               <input

@@ -98,11 +98,11 @@ class QuizIndex extends Component {
 
     return (
       <Spinner ready={this.state.api_response}>
-        <h4>
+        <h5>
           {current_quiz.title ?
             `Selected Quiz: ${current_quiz.title}` :
             `Select a Quiz`}
-        </h4>
+        </h5>
 
         <Link to="/quizzes/new" className="btn btn-primary mr-1">
           New Quiz

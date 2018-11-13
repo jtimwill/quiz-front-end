@@ -4,6 +4,7 @@ import { getQuizzes } from '../../services/quizService.js';
 import { getUserQuizzes } from '../../services/userQuizService.js';
 import { compareDates } from '../../utilities/sortUtility.js';
 import { reformatDate } from '../../utilities/dateUtility.js';
+import { reformatScore } from '../../utilities/scoreUtility.js';
 import Pagination from '../reusable/pagination';
 import Spinner from '../reusable/spinner';
 
@@ -91,7 +92,7 @@ class UserQuizIndex extends Component {
 
     return (
       <Spinner ready={this.state.api_response}>
-        <h4>Select A Quiz</h4>
+        <h5>Select A Quiz</h5>
         <button onClick={this.toggleSort} className="btn btn-info btn-sm my-1">
           {"Sort by date "}
           <i className={"fa fa-sort-" + sort_direction}></i>
@@ -106,7 +107,7 @@ class UserQuizIndex extends Component {
                 <h5 className="mb-1">{user_quiz.title}</h5>
                 <p className="mb-1">Times attempted: {user_quiz.attempts}</p>
                 <p className="mb-1">
-                  Last score: {`${user_quiz.last_score*100}%`}
+                  Last score: {reformatScore(user_quiz.last_score) + "%"}
                 </p>
                 <p className="mb-1">
                   Last attempted: {reformatDate(user_quiz.created_at)}

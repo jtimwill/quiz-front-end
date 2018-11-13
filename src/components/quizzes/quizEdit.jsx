@@ -111,7 +111,7 @@ class QuizEdit extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
-            <h4>Edit Quiz</h4>
+            <h5>Edit Quiz</h5>
             <div className="form-group">
               <label htmlFor="inlineFormInputTitle">Title</label>
               <input

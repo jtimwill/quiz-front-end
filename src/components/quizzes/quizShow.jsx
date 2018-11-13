@@ -68,13 +68,13 @@ class QuizShow extends Component {
       <div className="container">
         <div className="row">
           <div className="col-sm">
-            <h4 className="text-capitalize">
+            <h5 className="text-capitalize">
               <p>Title: {quiz.title}</p>
               <p>Description: {quiz.description}</p>
               <p>Difficulty: {quiz.difficulty}</p>
               <p>Category: {findCategory(quiz.category_id, categories)}</p>
               <p>Questions: {quiz.questions.length}</p>
-            </h4>
+            </h5>
           </div>
           <div className="col-sm">
             <table className="table table-sm table-bordered">

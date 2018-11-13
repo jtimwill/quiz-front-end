@@ -83,7 +83,7 @@ class QuestionNew extends Component {
       <div>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
-            <h4>Edit Question</h4>
+            <h5>Edit Question</h5>
             <div className="form-group">
               <label htmlFor="inlineFormInputQuestion">Question</label>
               <input
