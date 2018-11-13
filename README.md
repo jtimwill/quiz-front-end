@@ -24,6 +24,11 @@ Additional resources that helped me:
 * [Window.confirm in React](https://gist.github.com/primaryobjects/aacf6fa49823afb2f6ff065790a5b402)
 * [React-Router Query Params](https://reacttraining.com/react-router/web/example/query-parameters)
 * [ChartJS Integration](https://github.com/jerairrest/react-chartjs-2)
+* Piano CSS
+  * [Button Example 1](https://codepen.io/cheeriottis/pen/inluv)
+  * [Button Example 2](http://jsfiddle.net/RN63Y)
+  * [CSS Box Shadows](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
+  * [CSS Shapes](https://www.w3schools.com/howto/howto_css_shapes.asp)
 
 ## Project Setup
 1. Install Node.js: https://nodejs.org/

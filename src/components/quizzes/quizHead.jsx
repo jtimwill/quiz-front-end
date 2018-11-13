@@ -8,7 +8,7 @@ const QuizHead = ({ quiz, onQuizSelect, onQuizDelete }) => {
   const url_prefix = `/quizzes/${quiz.id}`;
   return (
     <div
-      className="card-header custom-hover"
+      className="card-header custom-hover bg-light"
       onClick={() => onQuizSelect(quiz)}>
       <div className="">
         <span className="font-weight-bold">Title: {quiz.title} </span>
