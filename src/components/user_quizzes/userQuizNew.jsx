@@ -19,11 +19,13 @@ class UserQuizNew extends Component {
       quiz: {
         questions: []
       },
-      start_time: 0
+      start_time: 0,
+      question_index: 0,
     };
 
     this.handleChange = this.handleChange.bind(this);
     this.handleSubmit = this.handleSubmit.bind(this);
+    this.handleAnswer = this.handleAnswer.bind(this);
   }
 
   async componentDidMount() {
@@ -58,8 +60,21 @@ class UserQuizNew extends Component {
     this.setState({ user_quiz });
   }
 
+  handleAnswer(user_answer) {
+    let user_quiz = { ...this.state.user_quiz };
+    let question_index = this.state.question_index;
+    user_quiz.user_answers[question_index].answer = user_answer;
+    this.setState({ user_quiz });
+    question_index++;
+    if (question_index === this.state.quiz.questions.length) {
+      this.handleSubmit();
+    } else {
+      this.setState({ question_index });
+    }
+  }
+
   async handleSubmit(event) {
-    event.preventDefault();
+    if (event) { event.preventDefault(); }
     const user_quiz = { ...this.state.user_quiz };
     user_quiz.time = (Date.now() - this.state.start_time)/1000;
     this.setState({ user_quiz });
@@ -75,23 +90,23 @@ class UserQuizNew extends Component {
   }
 
   render() {
+    const { quiz, question_index } = this.state;
+
     return (
       <div>
-        {this.state.quiz.category_id === 1 && (
+        {quiz.category_id === 1 && (
           <MusicQuiz
-            quiz={this.state.quiz}
-            onFormSubmit={this.handleSubmit}
-            onInputChange={this.handleChange}
+            question={quiz.questions[question_index].question}
+            onAnswer={this.handleAnswer}
           />
         )}
-        {this.state.quiz.category_id === 2 && (
+        {quiz.category_id === 2 && (
           <MuscleQuiz
-            quiz={this.state.quiz}
-            onFormSubmit={this.handleSubmit}
-            onInputChange={this.handleChange}
+            question={quiz.questions[question_index].question}
+            onAnswer={this.handleAnswer}
           />
         )}
-        {this.state.quiz.category_id > 2 && (
+        {quiz.category_id > 2 && (
           <GenericQuiz
             quiz={this.state.quiz}
             onFormSubmit={this.handleSubmit}
