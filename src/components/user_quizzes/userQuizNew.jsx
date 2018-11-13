@@ -4,6 +4,7 @@ import { getQuiz } from '../../services/quizService.js';
 import { getCurrentUser } from '../../services/authService.js';
 import GenericQuiz from '../reusable/genericQuiz';
 import MusicQuiz from '../reusable/musicQuiz';
+import MuscleQuiz from '../reusable/muscleQuiz';
 
 class UserQuizNew extends Component {
   constructor(props) {
@@ -76,16 +77,27 @@ class UserQuizNew extends Component {
   render() {
     return (
       <div>
-        {/* <GenericQuiz
-          quiz={this.state.quiz}
-          onFormSubmit={this.handleSubmit}
-          onInputChange={this.handleChange}
-        /> */}
-        <MusicQuiz
-          quiz={this.state.quiz}
-          onFormSubmit={this.handleSubmit}
-          onInputChange={this.handleChange}
-        />
+        {this.state.quiz.category_id === 1 && (
+          <MusicQuiz
+            quiz={this.state.quiz}
+            onFormSubmit={this.handleSubmit}
+            onInputChange={this.handleChange}
+          />
+        )}
+        {this.state.quiz.category_id === 2 && (
+          <MuscleQuiz
+            quiz={this.state.quiz}
+            onFormSubmit={this.handleSubmit}
+            onInputChange={this.handleChange}
+          />
+        )}
+        {this.state.quiz.category_id > 2 && (
+          <GenericQuiz
+            quiz={this.state.quiz}
+            onFormSubmit={this.handleSubmit}
+            onInputChange={this.handleChange}
+          />
+        )}
       </div>
     );
   }
