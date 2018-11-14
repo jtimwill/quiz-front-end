@@ -3,35 +3,44 @@ import PropTypes from 'prop-types';
 import './piano.css';
 
 const MusicQuiz = ({ question, onAnswer }) => {
-  const keys = [
-    { name: "white key C", info: "C" },
-    { name: "white key D", info: "D" },
-    { name: "white key E", info: "E" },
-    { name: "white key F", info: "F" },
-    { name: "white key G", info: "G" },
-    { name: "white key A", info: "A" },
-    { name: "white key B", info: "B" },
-    { name: "black key Cs", info: "Cs" },
-    { name: "black key Ds", info: "Ds" },
-    { name: "black key Fs", info: "Fs" },
-    { name: "black key Gs", info: "Gs" },
-    { name: "black key As", info: "As" }
-  ];
+  let key_elements = [];
+  let images = {};
+  const white_keys = ["C", "D", "E", "F", "G", "A", "B"];
+  const black_keys = ["Cs", "Ds", "Fs", "Gs", "As"];
+  const notes = white_keys.concat(black_keys);
+  const versions = [["C0", "C0"], ["D0", "D0"], ["E0", "E0"], ["F0", "F0"],
+                    ["G0", "G0"], ["A0", "A0"], ["B0", "B0"], ["CS", "Db"],
+                    ["DS", "Eb"], ["FS", "Gb"], ["GS", "Ab"], ["AS", "Bb"]];
+  white_keys.forEach( note => {
+    key_elements.push({ name: `white key ${note}`, info: note });
+  });
+  black_keys.forEach( note => {
+    key_elements.push({ name: `black key ${note}`, info: note });
+  });
+
+  for (let i = 0, length = notes.length; i < length; i++) {
+    images[notes[i]] = versions[i];
+  }
+
+  function get_path(note) {
+    const clefs = ["bass", "treble"];
+    const clef = clefs[Math.floor(Math.random() * 2)];
+    const version = Math.floor(Math.random() * 2);
+    const path_prefix = `${process.env.PUBLIC_URL}/musicImages/`;
+    return `${path_prefix + clef}/${images[note][version]}.png`;
+  }
+
   return (
     <div className="card">
       <div className="quiz">
         <div className="card">
-          <h4>Press the {question} key</h4>
+          <img src={get_path(question)} alt={question}/>
         </div>
       </div>
       <div className="card-body">
         <div className="wrapper">
           <div className="keyboard">
-            <div
-              className="white key C"
-              onClick={() => onAnswer("C")}>
-            </div>
-            {keys.map(key => (
+            {key_elements.map(key => (
               <div
                 key={key.info}
                 className={key.name}
