@@ -72,29 +72,23 @@
 .Gs { grid-column: 6/7; grid-row: 2/3; }
 .As { grid-column: 7/8; grid-row: 2/3; }
 
+/* .piano-background {
+  background-color: #F4EED8;
+} */
+
 img {
   width: 30%;
   margin: auto;
+  display: block;
 }
 
-@media only screen and (max-width:991px) {
-  img {
-    width: 40%;
-    margin: auto;
-  }
-}
-
+@media only screen and (max-width:991px) { img { width: 40%; }}
 @media only screen and (max-width:600px) {
-  img {
-    width: 80%;
-    margin: auto;
-  }
-
+  img { width: 80%; }
   .white {
     height: 128px;
     width: 40px;
   }
-
   .black {
     height: 80px;
     width: 20px;

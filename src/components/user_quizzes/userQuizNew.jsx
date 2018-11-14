@@ -81,7 +81,7 @@ class UserQuizNew extends Component {
 
     try {
       await saveUserQuiz(user_quiz);
-      this.props.history.replace("/user-quizzes/index");
+      this.props.history.replace(`/user-quizzes/${this.state.quiz.id}/show`);
     } catch (exception) {
       if (exception.response && exception.response.status === 400) {
         alert(exception.response.data.errors[0].message);
@@ -91,20 +91,25 @@ class UserQuizNew extends Component {
 
   render() {
     const { quiz, question_index } = this.state;
-
     return (
       <div>
         {quiz.category_id === 1 && (
-          <MusicQuiz
-            question={quiz.questions[question_index].question}
-            onAnswer={this.handleAnswer}
-          />
+          <div>
+            <h4>Question {question_index + 1} of {quiz.questions.length}</h4>
+            <MusicQuiz
+              question={quiz.questions[question_index].question}
+              onAnswer={this.handleAnswer}
+            />
+          </div>
         )}
         {quiz.category_id === 2 && (
-          <MuscleQuiz
-            question={quiz.questions[question_index].question}
-            onAnswer={this.handleAnswer}
-          />
+          <div>
+            <h4>Question {question_index + 1} of {quiz.questions.length}</h4>
+            <MuscleQuiz
+              question={quiz.questions[question_index].question}
+              onAnswer={this.handleAnswer}
+            />
+          </div>
         )}
         {quiz.category_id > 2 && (
           <GenericQuiz

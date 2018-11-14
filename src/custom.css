@@ -107,3 +107,8 @@ form {
   z-index: 1072;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+.custom-max-width {
+  max-width: 1000px;
+  margin: auto;
+}

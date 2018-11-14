@@ -5,11 +5,9 @@ import MuscleMap from './muscleMap';
 const MuscleQuiz = ({ question, onAnswer }) => {
   return (
     <div className="card">
-      <div className="quiz">
-        <div className="card">
-          <h4>Click the {question} muscle group</h4>
-        </div>
-      </div>
+      <h5 className="card-header bg-primary text-center text-light">
+        Click the {question} muscle group
+      </h5>
       <div className="card-body">
         <MuscleMap
           current_muscles={[]}

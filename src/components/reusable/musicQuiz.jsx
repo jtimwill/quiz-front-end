@@ -32,10 +32,8 @@ const MusicQuiz = ({ question, onAnswer }) => {
 
   return (
     <div className="card">
-      <div className="quiz">
-        <div className="card">
-          <img src={get_path(question)} alt={question}/>
-        </div>
+      <div className="card-header bg-white">
+        <img src={get_path(question)} alt={question}/>
       </div>
       <div className="card-body">
         <div className="wrapper">
@@ -45,7 +43,8 @@ const MusicQuiz = ({ question, onAnswer }) => {
                 key={key.info}
                 className={key.name}
                 onClick={() => onAnswer(key.info)}
-              />
+              >
+              </div>
             ))}
           </div>
         </div>

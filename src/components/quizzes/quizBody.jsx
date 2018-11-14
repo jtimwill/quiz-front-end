@@ -3,8 +3,6 @@ import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
 const QuizBody = ({ quiz, current_quiz, index, category }) => {
-  const btn = "btn-sm btn btn-";
-
   function getCSSClass(quiz, current_quiz) {
     return quiz === current_quiz ? "custom-show" : "custom-hide-2"
   }
@@ -13,20 +11,29 @@ const QuizBody = ({ quiz, current_quiz, index, category }) => {
     <div>
       <div className={getCSSClass(quiz, current_quiz)}>
         <div className="card-body">
-          <h5 className="card-title">Description: </h5>
-          <p className="card-text">{quiz.description}</p>
-          <h5 className="card-title">Difficulty: </h5>
-          <p className="card-text">{quiz.difficulty}</p>
-          <h5 className="card-title">Category: </h5>
-          <p className="card-text">{category}</p>
+          <p className="card-text">
+            <span className="font-weight-bold">Description: </span>
+            {quiz.description}
+          </p>
+          <p className="card-text">
+            <span className="font-weight-bold">Difficulty: </span>
+            {quiz.difficulty}
+          </p>
+          <p className="card-text">
+            <span className="font-weight-bold">Category: </span>
+            {category}
+          </p>
+          <Link
+            to={`/quizzes/${quiz.id}/show`}
+            className={`btn-sm btn btn-info mx-1`}
+          >
+            Edit Questions
+          </Link>
           <Link
             to={`/user-quizzes/new?quizId=${quiz.id}`}
-            className={`${btn}success mx-1`}
+            className={`btn-lg btn btn-success mx-1`}
           >
             Start Quiz
-          </Link>
-          <Link to={`/quizzes/${quiz.id}/show`} className={`${btn}info mx-1`}>
-            Edit Questions
           </Link>
         </div>
       </div>

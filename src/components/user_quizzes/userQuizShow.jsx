@@ -121,100 +121,102 @@ class UserQuizShow extends Component {
           } = this.state;
     return (
       <Spinner ready={this.state.api_response}>
-        <div className="card my-2">
-          <div className="card-header bg-light">
-            <h5 className="card-title">Quiz: {quiz.title}</h5>
+        <div className="custom-max-width">
+          <div className="card my-2">
+            <div className="card-header bg-light">
+              <h5 className="card-title">Quiz: {quiz.title}</h5>
+            </div>
+            <div className="card-body">
+              <Line data={this.chart_data}/>
+            </div>
+            <ul className="list-group list-group-flush">
+              <li className="list-group-item">
+                <span className="card-text font-weight-bold">Attempts: </span>
+                {user_quizzes.length}
+              </li>
+            </ul>
+            <div className="card-body">
+              <Link
+                to={`/user-quizzes/new?quizId=${quiz.id}`}
+                className="btn btn-lg btn-primary"
+              >
+                Try Again
+              </Link>
+            </div>
           </div>
-          <div className="card-body">
-            <Line data={this.chart_data}/>
-          </div>
-          <ul className="list-group list-group-flush">
-            <li className="list-group-item">
-              <span className="card-text font-weight-bold">Attempts: </span>
-              {user_quizzes.length}
-            </li>
-          </ul>
-          <div className="card-body">
-            <Link
-              to={`/user-quizzes/new?quizId=${quiz.id}`}
-              className="btn btn-lg btn-primary"
-            >
-              Try Again
-            </Link>
-          </div>
-        </div>
-        <div className={show_modal ? "custom-modal" : "custom-modal-hide"}>
-          <div className="modal-dialog">
-            <div className="modal-content">
-              <div className="modal-header">
-                <h5 className="modal-title">Your Answers:</h5>
-                <button
-                  type="button"
-                  className="close"
-                  onClick={this.hideModal}
-                >
-                  <span>&times;</span>
-                </button>
-              </div>
-              <div className="modal-body">
-                <ul className="list-group list-group-flush">
-                  {current_user_quiz.user_answers.map((user_answer, index) => (
-                    <li key={user_answer.id} className="list-group-item">
-                      Q{index} Answer: "{user_answer.answer}"
-                      {user_answer.correct ? " (Right)" : " (Wrong)"}
-                    </li>
-                  ))}
-                </ul>
-              </div>
-              <div className="modal-footer">
-                <button
-                  type="button"
-                  className="btn btn-secondary"
-                  data-dismiss="modal"
-                  onClick={this.hideModal}
-                >
-                  Close
-                </button>
+          <div className={show_modal ? "custom-modal" : "custom-modal-hide"}>
+            <div className="modal-dialog">
+              <div className="modal-content">
+                <div className="modal-header">
+                  <h5 className="modal-title">Your Answers:</h5>
+                  <button
+                    type="button"
+                    className="close"
+                    onClick={this.hideModal}
+                  >
+                    <span>&times;</span>
+                  </button>
+                </div>
+                <div className="modal-body">
+                  <ul className="list-group list-group-flush">
+                    {current_user_quiz.user_answers.map((user_answer, index) => (
+                      <li key={user_answer.id} className="list-group-item">
+                        Q{index} Answer: "{user_answer.answer}"
+                        {user_answer.correct ? " (Right)" : " (Wrong)"}
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+                <div className="modal-footer">
+                  <button
+                    type="button"
+                    className="btn btn-secondary"
+                    data-dismiss="modal"
+                    onClick={this.hideModal}
+                  >
+                    Close
+                  </button>
+                </div>
               </div>
             </div>
           </div>
-        </div>
-        <table className="table table-hover table-bordered">
-          <thead>
-            <tr>
-              <th scope="col" >#</th>
-              <th
-                scope="col"
-                onClick={this.toggleSort}
-                className="custom-hover"
-              >
-                Date <i className={"fa fa-sort-" + sort_direction}></i>
-              </th>
-              <th scope="col">Score</th>
-              <th scope="col">Time (sec)</th>
-            </tr>
-          </thead>
-          <tbody>
-            {this.generatePage(current_page, page_size).map((user_quiz, index) => (
-              <tr
-                key={user_quiz.id}
-                className="custom-hover"
-                onClick={() => this.handleUserQuizSelect(user_quiz)}
-              >
-                <th scope="row">{index}</th>
-                <td>{reformatDate(user_quiz.created_at)}</td>
-                <td>{reformatScore(user_quiz.score) + "%"}</td>
-                <td>{user_quiz.time.toFixed(2)}</td>
+          <table className="table table-hover table-bordered">
+            <thead>
+              <tr>
+                <th scope="col" >#</th>
+                <th
+                  scope="col"
+                  onClick={this.toggleSort}
+                  className="custom-hover"
+                >
+                  Date <i className={"fa fa-sort-" + sort_direction}></i>
+                </th>
+                <th scope="col">Score</th>
+                <th scope="col">Time (sec)</th>
               </tr>
-            ))}
-          </tbody>
-        </table>
-        <Pagination
-          page_size={page_size}
-          item_count={user_quizzes.length}
-          current_page={current_page}
-          onPageChange={this.handlePageChange}
-        />
+            </thead>
+            <tbody>
+              {this.generatePage(current_page, page_size).map((user_quiz, index) => (
+                <tr
+                  key={user_quiz.id}
+                  className="custom-hover"
+                  onClick={() => this.handleUserQuizSelect(user_quiz)}
+                >
+                  <th scope="row">{index}</th>
+                  <td>{reformatDate(user_quiz.created_at)}</td>
+                  <td>{reformatScore(user_quiz.score) + "%"}</td>
+                  <td>{user_quiz.time.toFixed(2)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+          <Pagination
+            page_size={page_size}
+            item_count={user_quizzes.length}
+            current_page={current_page}
+            onPageChange={this.handlePageChange}
+          />
+        </div>
       </Spinner>
     );
   }
