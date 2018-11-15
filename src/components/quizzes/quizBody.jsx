@@ -2,11 +2,13 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PropTypes from 'prop-types';
 
-const QuizBody = ({ quiz, current_quiz, index, category }) => {
+const QuizBody = ({ quiz, current_quiz, index, category, onQuizDelete }) => {
   function getCSSClass(quiz, current_quiz) {
     return quiz === current_quiz ? "custom-show" : "custom-hide-2"
   }
-
+  const btn = "btn btn-";
+  const fa = "fa fa-";
+  const url_prefix = `/quizzes/${quiz.id}`;
   return (
     <div>
       <div className={getCSSClass(quiz, current_quiz)}>
@@ -23,18 +25,20 @@ const QuizBody = ({ quiz, current_quiz, index, category }) => {
             <span className="font-weight-bold">Category: </span>
             {category}
           </p>
-          <Link
-            to={`/quizzes/${quiz.id}/show`}
-            className={`btn-sm btn btn-info mx-1`}
-          >
+          <Link to={`${url_prefix}/show`} className={`${btn}warning`}>
             Edit Questions
           </Link>
-          <Link
-            to={`/user-quizzes/new?quizId=${quiz.id}`}
-            className={`btn-lg btn btn-success mx-1`}
-          >
-            Start Quiz
-          </Link>
+          <div className="float-right">
+            <Link to={`${url_prefix}/edit`} className={`${btn}info mx-1`}>
+              <i className={`${fa}pencil-square-o`}></i>
+            </Link>
+            <button
+              onClick={() => onQuizDelete(quiz)}
+              className={`${btn}danger`}
+            >
+              <i className={`${fa}trash`}></i>
+            </button>
+          </div>
         </div>
       </div>
     </div>
@@ -45,7 +49,8 @@ QuizBody.propTypes = {
   quiz: PropTypes.object.isRequired,
   current_quiz: PropTypes.object.isRequired,
   index: PropTypes.number.isRequired,
-  category: PropTypes.string.isRequired
+  category: PropTypes.string.isRequired,
+  onQuizDelete: PropTypes.func.isRequired
 };
 
 export default QuizBody;

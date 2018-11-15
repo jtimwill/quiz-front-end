@@ -103,7 +103,6 @@ class QuizIndex extends Component {
             `Selected Quiz: ${current_quiz.title}` :
             `Select a Quiz`}
         </h5>
-
         <Link to="/quizzes/new" className="btn btn-primary mr-1">
           New Quiz
         </Link>
@@ -111,7 +110,6 @@ class QuizIndex extends Component {
           {"date "}
           <i className={"fa fa-sort-" + sort_direction}></i>
         </button>
-
         {this.generatePage(current_page, page_size).map((quiz, index) => (
           <div
             key={quiz.id}
@@ -121,18 +119,16 @@ class QuizIndex extends Component {
             <QuizHead
               quiz={quiz}
               onQuizSelect={this.handleQuizSelect}
-              onQuizDelete={this.handleQuizDelete}
             />
-
             <QuizBody
               quiz={quiz}
               current_quiz={current_quiz}
               index={index}
               category={findCategory(quiz.category_id, categories)}
+              onQuizDelete={this.handleQuizDelete}
             />
           </div>
         ))}
-
         <Pagination
           page_size={page_size}
           item_count={quizzes.length}
