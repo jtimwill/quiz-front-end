@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import { getUser, updateUser } from '../../services/userService.js';
 import { loginWithJwt } from '../../services/authService';
+import Spinner from '../reusable/spinner';
 
 class UserEdit extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class UserEdit extends Component {
         name: "",
         email: "",
       },
-      errors: {}
+      errors: {},
+      api_response: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -30,7 +32,7 @@ class UserEdit extends Component {
         name: data.name,
         email: data.email,
       };
-      this.setState({ user });
+      this.setState({ user, api_response: true });
     } catch (exception) {
       if (exception.response && exception.response.status === 404) {
         this.props.history.replace("/not-found");
@@ -92,7 +94,7 @@ class UserEdit extends Component {
 
   render() {
     return (
-      <div>
+      <Spinner ready={this.state.api_response}>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
             <h5>Edit User</h5>
@@ -129,7 +131,7 @@ class UserEdit extends Component {
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
-      </div>
+      </Spinner>
     );
   }
 }

@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import { updateCategory, getCategory } from '../../services/categoryService.js';
+import Spinner from '../reusable/spinner';
 
 class CategoryEdit extends Component {
   constructor(props) {
@@ -10,6 +11,7 @@ class CategoryEdit extends Component {
         name: ""
       },
       errors: {},
+      api_response: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -24,7 +26,7 @@ class CategoryEdit extends Component {
     const category_id = this.props.match.params.id;
     try {
       const { data } = await getCategory(category_id);
-      this.setState({ category: data });
+      this.setState({ category: data, api_response: true });
     } catch (exception) {
       if (exception.response && exception.response.status === 404) {
         this.props.history.replace("/not-found");
@@ -84,7 +86,7 @@ class CategoryEdit extends Component {
 
   render() {
     return (
-      <div>
+      <Spinner ready={this.state.api_response}>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
             <h5>Edit Category</h5>
@@ -105,7 +107,7 @@ class CategoryEdit extends Component {
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
-      </div>
+      </Spinner>
     );
   }
 }

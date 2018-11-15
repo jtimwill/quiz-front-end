@@ -5,6 +5,7 @@ import { getCurrentUser } from '../../services/authService.js';
 import GenericQuiz from '../reusable/genericQuiz';
 import MusicQuiz from '../reusable/musicQuiz';
 import MuscleQuiz from '../reusable/muscleQuiz';
+import Spinner from '../reusable/spinner';
 
 class UserQuizNew extends Component {
   constructor(props) {
@@ -21,6 +22,7 @@ class UserQuizNew extends Component {
       },
       start_time: 0,
       question_index: 0,
+      api_response: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -43,7 +45,7 @@ class UserQuizNew extends Component {
     }
 
     const start_time = Date.now();
-    this.setState({ quiz, user_quiz, start_time });
+    this.setState({ quiz, user_quiz, start_time, api_response: true });
   }
 
   getQueryParam(param, search) {
@@ -90,9 +92,9 @@ class UserQuizNew extends Component {
   }
 
   render() {
-    const { quiz, question_index } = this.state;
+    const { quiz, question_index, api_response } = this.state;
     return (
-      <div>
+      <Spinner ready={api_response}>
         {quiz.category_id === 1 && (
           <div>
             <h4>Question {question_index + 1} of {quiz.questions.length}</h4>
@@ -118,7 +120,7 @@ class UserQuizNew extends Component {
             onInputChange={this.handleChange}
           />
         )}
-      </div>
+      </Spinner>
     );
   }
 }

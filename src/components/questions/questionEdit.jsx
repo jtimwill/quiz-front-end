@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import { updateQuestion, getQuestion } from '../../services/questionService.js';
+import Spinner from '../reusable/spinner';
 
 class QuestionEdit extends Component {
   constructor(props) {
@@ -11,7 +12,8 @@ class QuestionEdit extends Component {
         question: "",
         answer: "",
       },
-      errors: {}
+      errors: {},
+      api_response: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -34,7 +36,7 @@ class QuestionEdit extends Component {
         question: data.question,
         answer: data.answer
       }
-      this.setState({ question });
+      this.setState({ question, api_response: true });
     } catch (exception) {
       if (exception.response && exception.response.status === 404) {
         this.props.history.replace("/not-found");
@@ -100,7 +102,7 @@ class QuestionEdit extends Component {
 
   render() {
     return (
-      <div>
+      <Spinner ready={this.state.api_response}>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
             <h5>Edit Question</h5>
@@ -137,7 +139,7 @@ class QuestionEdit extends Component {
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
-      </div>
+      </Spinner>
     );
   }
 }

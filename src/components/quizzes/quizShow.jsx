@@ -5,6 +5,7 @@ import { getCategories } from '../../services/categoryService.js';
 import { deleteQuestion } from '../../services/questionService.js';
 import { getCurrentUser } from '../../services/authService';
 import { findCategory } from '../../utilities/findUtility.js';
+import Spinner from '../reusable/spinner';
 
 class QuizShow extends Component {
   constructor(props) {
@@ -18,7 +19,8 @@ class QuizShow extends Component {
         category_id: "",
         questions: []
       },
-      categories: []
+      categories: [],
+      api_response: false
     };
   }
 
@@ -29,7 +31,7 @@ class QuizShow extends Component {
 
     try {
       const { data: quiz } = await getQuiz(quiz_id);
-      this.setState({ quiz });
+      this.setState({ quiz, api_response: true });
     } catch (exception) {
       if (exception.response && exception.response.status === 404) {
         console.log(exception);
@@ -63,60 +65,62 @@ class QuizShow extends Component {
   }
 
   render() {
-    const { quiz, categories } = this.state;
+    const { quiz, categories, api_response } = this.state;
     return (
-      <div className="container">
-        <div className="row">
-          <div className="col-sm">
-            <h5 className="text-capitalize">
-              <p>Title: {quiz.title}</p>
-              <p>Description: {quiz.description}</p>
-              <p>Difficulty: {quiz.difficulty}</p>
-              <p>Category: {findCategory(quiz.category_id, categories)}</p>
-              <p>Questions: {quiz.questions.length}</p>
-            </h5>
-          </div>
-          <div className="col-sm">
-            <table className="table table-sm table-bordered">
-              <thead>
-                <tr>
-                  <th scope="col">Question</th>
-                  <th scope="col">Answer</th>
-                  <th scope="col" colSpan="2">
-                    <Link
-                      to={`/quizzes/${quiz.id}/questions/new`}
-                      className="btn btn-primary">
-                      New Question
-                    </Link>
-                  </th>
-                </tr>
-              </thead>
-              <tbody>
-                {quiz.questions.map(question => (
-                  <tr key={question.id}>
-                    <td>{question.question}</td>
-                    <td>{question.answer}</td>
-                    <td>
+      <Spinner ready={api_response}>
+        <div className="container">
+          <div className="row">
+            <div className="col-sm">
+              <h5 className="text-capitalize">
+                <p>Title: {quiz.title}</p>
+                <p>Description: {quiz.description}</p>
+                <p>Difficulty: {quiz.difficulty}</p>
+                <p>Category: {findCategory(quiz.category_id, categories)}</p>
+                <p>Questions: {quiz.questions.length}</p>
+              </h5>
+            </div>
+            <div className="col-sm">
+              <table className="table table-sm table-bordered">
+                <thead>
+                  <tr>
+                    <th scope="col">Question</th>
+                    <th scope="col">Answer</th>
+                    <th scope="col" colSpan="2">
                       <Link
-                        to={`/quizzes/${quiz.id}/questions/${question.id}/edit`}
-                        className="btn btn-info btn-sm">
-                        Edit
+                        to={`/quizzes/${quiz.id}/questions/new`}
+                        className="btn btn-primary">
+                        New Question
                       </Link>
-                    </td>
-                    <td>
-                      <button
-                        onClick={() => this.handleDelete(question)}
-                        className="btn btn-danger btn-sm">
-                        Delete
-                      </button>
-                    </td>
+                    </th>
                   </tr>
-                ))}
-              </tbody>
-            </table>
+                </thead>
+                <tbody>
+                  {quiz.questions.map(question => (
+                    <tr key={question.id}>
+                      <td>{question.question}</td>
+                      <td>{question.answer}</td>
+                      <td>
+                        <Link
+                          to={`/quizzes/${quiz.id}/questions/${question.id}/edit`}
+                          className="btn btn-info btn-sm">
+                          Edit
+                        </Link>
+                      </td>
+                      <td>
+                        <button
+                          onClick={() => this.handleDelete(question)}
+                          className="btn btn-danger btn-sm">
+                          Delete
+                        </button>
+                      </td>
+                    </tr>
+                  ))}
+                </tbody>
+              </table>
+            </div>
           </div>
         </div>
-      </div>
+      </Spinner>
     );
   }
 }

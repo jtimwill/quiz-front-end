@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import Joi from 'joi-browser';
 import { updateQuiz, getQuiz } from '../../services/quizService.js';
 import { getCategories } from '../../services/categoryService.js';
+import Spinner from '../reusable/spinner';
 
 class QuizEdit extends Component {
   constructor(props) {
@@ -15,7 +16,8 @@ class QuizEdit extends Component {
         category_id: ""
       },
       categories: [],
-      errors: {}
+      errors: {},
+      api_response: false
     };
 
     this.handleChange = this.handleChange.bind(this);
@@ -44,7 +46,7 @@ class QuizEdit extends Component {
         difficulty: data.difficulty,
         category_id: data.category_id.toString()
       };
-      this.setState({ quiz });
+      this.setState({ quiz, api_response: true });
     } catch (exception) {
       if (exception.response && exception.response.status === 404) {
         this.props.history.replace("/not-found");
@@ -108,7 +110,7 @@ class QuizEdit extends Component {
 
   render() {
     return (
-      <div>
+      <Spinner ready={this.state.api_response}>
         <form onSubmit={this.handleSubmit} className="card bg-light">
           <div className="card-body">
             <h5>Edit Quiz</h5>
@@ -187,7 +189,7 @@ class QuizEdit extends Component {
             <button type="submit" className="btn btn-primary">Submit</button>
           </div>
         </form>
-      </div>
+      </Spinner>
     );
   }
 }
