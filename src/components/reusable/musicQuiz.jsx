@@ -32,7 +32,7 @@ const MusicQuiz = ({ question, onAnswer }) => {
 
   return (
     <div className="card">
-      <div className="card-header bg-white">
+      <div className="card-header note-background-color">
         <img src={get_path(question)} alt={question}/>
       </div>
       <div className="card-body">

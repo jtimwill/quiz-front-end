@@ -96,3 +96,7 @@ img {
   }
   .black:active { transform: translate(10px, 5px); }
 }
+
+.note-background-color {
+  background-color: #F4EED8 !important;
+}
