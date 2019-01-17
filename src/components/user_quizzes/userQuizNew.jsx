@@ -121,6 +121,7 @@ class UserQuizNew extends Component {
 
   render() {
     const { quiz, question_index, timer, api_response } = this.state;
+    
     return (
       <Spinner ready={api_response}>
         <Timer time={timer} />

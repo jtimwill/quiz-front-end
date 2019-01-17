@@ -24,8 +24,10 @@ const MusicQuiz = ({ question, onAnswer }) => {
 
   function get_path(note) {
     const clefs = ["bass", "treble"];
-    const clef = clefs[Math.floor(Math.random() * 2)];
-    const version = Math.floor(Math.random() * 2);
+    // ** Version flickering workaround (fix this) **
+    const clef = clefs[1]; // Better: clefs[Math.floor(Math.random() * 2)];
+    const version = 1; // Better: Math.floor(Math.random() * 2);
+    // ****************
     const path_prefix = `${process.env.PUBLIC_URL}/musicImages/`;
     return `${path_prefix + clef}/${images[note][version]}.png`;
   }
@@ -55,7 +57,7 @@ const MusicQuiz = ({ question, onAnswer }) => {
 
 MusicQuiz.propTypes = {
   question: PropTypes.string.isRequired,
-  onAnswer: PropTypes.func.isRequired,
+  onAnswer: PropTypes.func.isRequired
 };
 
 export default MusicQuiz;
