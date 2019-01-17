@@ -6,6 +6,7 @@ import GenericQuiz from '../reusable/genericQuiz';
 import MusicQuiz from '../reusable/musicQuiz';
 import MuscleQuiz from '../reusable/muscleQuiz';
 import Spinner from '../reusable/spinner';
+import Timer from '../reusable/timer';
 
 class UserQuizNew extends Component {
   constructor(props) {
@@ -22,6 +23,10 @@ class UserQuizNew extends Component {
       },
       start_time: 0,
       question_index: 0,
+      timer: {
+        tenths: 0,
+        seconds: 0
+      },
       api_response: false
     };
 
@@ -29,6 +34,8 @@ class UserQuizNew extends Component {
     this.handleSubmit = this.handleSubmit.bind(this);
     this.handleAnswer = this.handleAnswer.bind(this);
   }
+
+
 
   async componentDidMount() {
     const quiz_id = this.getQueryParam("?quizId=", this.props.location.search);
@@ -46,6 +53,27 @@ class UserQuizNew extends Component {
 
     const start_time = Date.now();
     this.setState({ quiz, user_quiz, start_time, api_response: true });
+
+    this.timer();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.time_loop);
+  }
+
+  timer() {
+    this.time_loop = setInterval(() => {
+      let timer = { ...this.state.timer };
+
+      if (timer.tenths === 9) {
+        timer.tenths = 0;
+        timer.seconds++;
+        this.setState({ timer });
+      } else {
+        timer.tenths++;
+        this.setState({ timer });
+      }
+    }, 100);
   }
 
   getQueryParam(param, search) {
@@ -92,9 +120,10 @@ class UserQuizNew extends Component {
   }
 
   render() {
-    const { quiz, question_index, api_response } = this.state;
+    const { quiz, question_index, timer, api_response } = this.state;
     return (
       <Spinner ready={api_response}>
+        <Timer time={timer} />
         {quiz.category_id === 1 && (
           <div>
             <h4>Question {question_index + 1} of {quiz.questions.length}</h4>

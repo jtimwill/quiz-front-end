@@ -30,6 +30,7 @@ Additional resources that helped me:
   * [CSS Box Shadows](https://developer.mozilla.org/en-US/docs/Web/CSS/box-shadow)
   * [CSS Shapes](https://www.w3schools.com/howto/howto_css_shapes.asp)
 * [Access Public Folder Path](https://stackoverflow.com/questions/44154939/load-local-images-in-react-js)
+* [React Timer Issues](https://www.youtube.com/watch?v=8BNdxFzMeVg)
 
 ## Project Setup
 1. Install Node.js: https://nodejs.org/
